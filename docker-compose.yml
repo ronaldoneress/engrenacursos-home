@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: engrena-home-app
+    restart: always
+    ports:
+      - "3022:3022"
+    env_file:
+      - .env
+    networks:
+      - easypanel
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.engrena-home.rule=Host(`engrenacursos.com.br`)"
+      - "traefik.http.routers.engrena-home.entrypoints=https"
+      - "traefik.http.routers.engrena-home.tls=true"
+      - "traefik.http.routers.engrena-home.tls.certresolver=letsencrypt"
+      - "traefik.http.services.engrena-home.loadbalancer.server.port=3022"
+      - "traefik.http.services.engrena-home.loadbalancer.server.scheme=http"
+
+networks:
+  easypanel:
+    external: true

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificado - Engrena Cursos e Treinamentos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700;800;900&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 20px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* PÁGINA A4 PAISAGEM */
+    .certificate-page {
+      width: 297mm;
+      height: 210mm;
+      background: #f8fafc;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      page-break-after: always;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* BORDA FINA EXTERNA */
+    .outer-border {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      border: 1.5px solid #1e293b;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* FAIXA LATERAL ESQUERDA (AZUL ESCURO COM TEXTURA E DIAGONAL) */
+    .sidebar {
+      width: 28%;
+      height: 100%;
+      background: linear-gradient(160deg, #0b132b 0%, #1c2541 50%, #0b132b 100%);
+      position: relative;
+      z-index: 2;
+      clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 20px;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+    }
+
+    /* LINHA DIAGONAL DOURADA AO LADO DA FAIXA */
+    .sidebar-gold-stripe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 29.5%;
+      background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+      z-index: 1;
+      clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+    }
+
+    /* LOGO NA FAIXA LATERAL */
+    .sidebar-logo {
+      width: 100%;
+      max-width: 170px;
+      margin: 0 auto;
+    }
+
+    .sidebar-logo img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+    }
+
+    /* MEDALHA / SELO "QUALIDADE / BEST AWARD" */
+    .badge-seal {
+      width: 110px;
+      height: 110px;
+      position: absolute;
+      top: 32%;
+      left: 20.5%;
+      z-index: 5;
+      background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 50%, #AA771C 100%);
+      border-radius: 50%;
+      padding: 5px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .badge-seal-inner {
+      width: 100%;
+      height: 100%;
+      background: #0b132b;
+      border-radius: 50%;
+      border: 2px dashed #FCF6BA;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #FCF6BA;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .badge-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .badge-stars {
+      color: #BF953F;
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    /* ÁREA DE CONTEÚDO (DIREITA) */
+    .main-content {
+      flex: 1;
+      height: 100%;
+      padding: 45px 50px 35px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      z-index: 3;
+    }
+
+    /* CABEÇALHO / TÍTULO DO CERTIFICADO */
+    .cert-header {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    .cert-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: #0b132b;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .cert-subtitle {
+      font-size: 12px;
+      font-weight: 700;
+      color: #b38728;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    .cert-divider {
+      width: 100%;
+      height: 1px;
+      background: #CBD5E1;
+      margin: 15px 0 20px 0;
+    }
+
+    /* CORPO DO CERTIFICADO */
+    .cert-body {
+      margin: auto 0;
+    }
+
+    .present-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748B;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .student-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 46px;
+      color: #0b132b;
+      margin-bottom: 5px;
+    }
+
+    .student-doc {
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 18px;
+    }
+
+    .course-text {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    .course-name {
+      font-weight: 800;
+      color: #0b132b;
+      text-transform: uppercase;
+    }
+
+    .legal-text {
+      font-size: 9.5px;
+      color: #64748B;
+      margin-top: 12px;
+      line-height: 1.4;
+    }
+
+    /* RODAPÉ E ASSINATURAS */
+    .cert-footer {
+      width: 100%;
+    }
+
+    .date-location {
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 25px;
+    }
+
+    .signatures-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 30px;
+    }
+
+    .sig-box {
+      flex: 1;
+      text-align: center;
+    }
+
+    .sig-line {
+      border-top: 1.5px solid #334155;
+      margin-bottom: 6px;
+    }
+
+    .sig-name {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0b132b;
+      text-transform: uppercase;
+    }
+
+    .sig-role {
+      font-size: 9px;
+      color: #64748B;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* VERSO - GRADE CURRICULAR */
+    .verso-container {
+      padding: 40px 50px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .verso-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0b132b;
+      border-bottom: 2px solid #B38728;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .grid-container {
+      display: flex;
+      gap: 40px;
+      text-align: left;
+    }
+
+    .grid-col {
+      flex: 1;
+    }
+
+    .section-head {
+      background: #0b132b;
+      color: #FCF6BA;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .curriculum-list {
+      list-style-type: none;
+      font-size: 11px;
+      color: #334155;
+      line-height: 2;
+    }
+
+    .curriculum-list li::before {
+      content: "⚙ ";
+      color: #B38728;
+    }
+
+    .info-box {
+      font-size: 10.5px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FRENTE DO CERTIFICADO -->
+  <div class="certificate-page">
+    <div class="outer-border"></div>
+
+    <!-- Faixa Dourada e Azul Lateral -->
+    <div class="sidebar-gold-stripe"></div>
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="engrena-cursos.svg" alt="Engrena Cursos e Treinamentos">
+      </div>
+    </div>
+
+    <!-- Medalha Dourada de Garantia -->
+    <div class="badge-seal">
+      <div class="badge-seal-inner">
+        <div class="badge-title">QUALIDADE<br>GARANTIDA</div>
+        <div class="badge-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+      
+      <!-- Cabeçalho -->
+      <div class="cert-header">
+        <h1 class="cert-title">Certificado</h1>
+        <div class="cert-subtitle">DE CONCLUSÃO DE CURSO</div>
+      </div>
+
+      <div class="cert-divider"></div>
+
+      <!-- Corpo -->
+      <div class="cert-body">
+        <p class="present-text">A Engrena Cursos e Treinamentos confere a:</p>
+        <div class="student-name">{{NOME_ALUNO}}</div>
+        <div class="student-doc">CPF: {{CPF_ALUNO}}</div>
+
+        <p class="course-text">
+          Por ter concluído com êxito o curso de <span class="course-name">{{NOME_CURSO}}</span>, com carga horária total de <strong>{{CARGA_HORARIA}} horas/aulas</strong>, cumprindo todas as exigências teóricas e práticas.
+        </p>
+
+        <p class="legal-text">
+          Em conformidade com as NR'S {{NORMAS_REGULAMENTADORES}}.<br>
+          Autorização e validade de cursos conforme a Lei nº 9.394/96, Decreto nº 5.154/04. Certificado registrado sob nº <strong>{{NUMERO_REGISTRO}}</strong>.
+        </p>
+      </div>
+
+      <!-- Rodapé -->
+      <div class="cert-footer">
+        <div class="date-location">
+          {{CIDADE_ESTADO}}, {{DATA_EMISSAO}}.
+        </div>
+
+        <div class="signatures-row">
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-name">{{NOME_RESPONSAVEL_1}}</div>
+            <div class="sig-role">{{CARGO_RESPONSAVEL_1}}</div>
+            <div class="sig-role">{{REGISTRO_RESPONSAVEL_1}}</div>
+          </div>
+
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-name">{{NOME_RESPONSAVEL_2}}</div>
+            <div class="sig-role">{{CARGO_RESPONSAVEL_2}}</div>
+            <div class="sig-role">{{REGISTRO_RESPONSAVEL_2}}</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VERSO DO CERTIFICADO -->
+  <div class="certificate-page">
+    <div class="outer-border"></div>
+    
+    <div class="verso-container">
+      <div>
+        <h2 class="verso-title">Grade Curricular - {{NOME_CURSO}} ({{CARGA_HORARIA}}H)</h2>
+        <p style="font-size: 11px; margin-bottom: 20px; font-weight: 700; color: #475569;">Modalidade: CURSO LIVRE</p>
+
+        <div class="grid-container">
+          <!-- Coluna 1 -->
+          <div class="grid-col">
+            <div class="section-head">Conteúdo Programático</div>
+            <ul class="curriculum-list">
+              <li>Máquinas e suas aplicações</li>
+              <li>Noções de Mecânica Básica</li>
+              <li>Primeiros Socorros</li>
+              <li>NR-1 / NR-6 / NR-11 / NR-12 / NR-18.6 / NR-18.22 / NR-18.28 / NR-31</li>
+              <li>Aula em Campo Prático</li>
+              <li>Estudo em casa - Material Digital</li>
+            </ul>
+          </div>
+
+          <!-- Coluna 2 -->
+          <div class="grid-col">
+            <div class="section-head">Amparo Legal</div>
+            <div class="info-box">
+              Conforme a Lei nº 9.394/96, o Decreto nº 5.154/04 e deliberação CEE 14/97. Cursos livres isentos de reconhecimento do MEC.
+            </div>
+
+            <div class="section-head">Dados da Instituição</div>
+            <div class="info-box">
+              <p><strong>Engrena Cursos e Treinamentos</strong></p>
+              <p><strong>CNPJ:</strong> {{CNPJ_EMPRESA}}</p>
+              <p><strong>Endereço:</strong> R Bahia, nº 213, Vila São Francisco, Estreito - MA</p>
+              <p><strong>Contato:</strong> (63) 9282-8953</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; font-size: 10px; color: #64748B; border-top: 1px solid #CBD5E1; padding-top: 10px;">
+        Validade em todo o território nacional. Registro interno nº {{NUMERO_REGISTRO}}.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
